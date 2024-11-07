@@ -63,10 +63,11 @@ def main():
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
     for row in cursor:
-        logger.info("; ".join(
+        log_message = "; ".join(
             [f"{field}={value}" for field,
                 value in zip(cursor.column_names, row)]
-        ))
+        )
+        logger.info(log_message)
     cursor.close()
     db.close()
 
