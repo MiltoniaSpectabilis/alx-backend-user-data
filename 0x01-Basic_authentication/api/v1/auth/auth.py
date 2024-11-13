@@ -18,20 +18,16 @@ class Auth:
         Return:
             - True if path is not in excluded_paths, else False
         """
-        if path is None or excluded_paths is None or not excluded_paths:
-            return True
-
-        # Ensure path ends with '/' for consistent comparison
-        if not path.endswith('/'):
+        if path[-1] != '/':
             path += '/'
 
-        # Check if path is in excluded_paths
         for excluded_path in excluded_paths:
-            if excluded_path.endswith('*'):
-                # Handle wildcard paths
-                if path.startswith(excluded_path[:-1]):
-                    return False
-            elif path == excluded_path:
+            if excluded_path[-1] == '*':
+                excluded_path = excluded_path[:-1]
+            if excluded_path[-1] != '/':
+                excluded_path += '/'
+
+            if path.startswith(excluded_path):
                 return False
 
         return True
