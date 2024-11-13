@@ -40,7 +40,7 @@ class Auth:
         """
         Returns the authorization header from a request object
         """
-        if request is not None:
+        if request is None or 'Authorization' not in request.headers:
             return None
 
         return request.headers.get('Authorization', None)
