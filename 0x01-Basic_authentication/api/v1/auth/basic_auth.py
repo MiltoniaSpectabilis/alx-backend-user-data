@@ -17,8 +17,7 @@ class BasicAuth(Auth):
         super().__init__()
 
     def extract_base64_authorization_header(
-            self, authorization_header: str
-    ) -> str:
+            self, authorization_header: str) -> str:
         """
         Extracts the Base64 part of the Authorization
         header for Basic Authentication.
@@ -82,11 +81,10 @@ class BasicAuth(Auth):
             return None
 
         users = User.search({'email': user_email})
-        if not users or len(users) == 0:
+        if not users:
             return None
 
-        user = users[0]  # Assuming email is unique, get the first match
-
+        user = users[0]
         if not user.is_valid_password(user_pwd):
             return None
 
