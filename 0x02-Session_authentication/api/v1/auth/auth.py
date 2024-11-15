@@ -3,6 +3,7 @@
 Authentication module for the API
 """
 from typing import List, TypeVar
+import os as getenv
 
 
 class Auth:
@@ -52,9 +53,11 @@ class Auth:
 
     def session_cookie(self, request=None):
         """
-        Returns a cookie value from a request object
+        Returns a cookie value from a request
         """
-        if request is None or 'Session_id' not in request.cookies:
+        if request is None:
             return None
 
-        return request.cookies.get('Session_id', None)
+        session_name = getenv('SESSION_NAME', '_my_session_id')
+
+        return request.cookies.get(session_name)
