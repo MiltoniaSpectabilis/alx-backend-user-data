@@ -3,8 +3,6 @@
 """
 
 import requests
-import json
-from typing import Dict, Any
 
 URL = "http://0.0.0.0:5000"
 
@@ -27,7 +25,8 @@ def log_in(email: str, password: str) -> str:
 
 
 def log_in_wrong_password(email: str, password: str) -> None:
-    """Attempts to log in with an incorrect password and asserts a 401 status code.
+    """Attempts to log in with an incorrect password and
+       asserts a 401 status code.
     """
     response = requests.post(
         f"{URL}/sessions", data={"email": email, "password": password})
@@ -35,14 +34,16 @@ def log_in_wrong_password(email: str, password: str) -> None:
 
 
 def profile_unlogged() -> None:
-    """Attempts to access the profile without logging in and asserts a 403 status code.
+    """Attempts to access the profile without logging in and
+       asserts a 403 status code.
     """
     response = requests.get(f"{URL}/profile")
     assert response.status_code == 403
 
 
 def profile_logged(session_id: str) -> None:
-    """Accesses the profile when logged in and asserts the email in the response.
+    """Accesses the profile when logged in and
+       asserts the email in the response.
     """
     cookies = {"session_id": session_id}
     response = requests.get(f"{URL}/profile", cookies=cookies)
